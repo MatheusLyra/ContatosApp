@@ -1,4 +1,4 @@
-# FinancasApp
+# ContatosApp
 
 O ContatosApp é um projeto ASP.NET MVC desenvolvido com Dapper, Entity Framework Code First que permite o controle de contatos. O sistema permite que os usuários criem uma conta para acessar as funcionalidades oferecidas.
 
