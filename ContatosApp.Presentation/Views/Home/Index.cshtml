@@ -1,0 +1,17 @@
+﻿@using System.Globalization;
+@using Newtonsoft.Json;
+@using ContatosApp.Presentation.Models.Auth;
+@{
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+    var cultureInfo = new CultureInfo("en-US");
+
+    //ler os dados do usuário autenticado
+    var data = User.Identity.Name;
+
+    //deserializar o JSON
+    var usuario = JsonConvert.DeserializeObject<UserAuthViewModel>(data);
+}
+
+
+
+<h1>Seja bem vindo @usuario.Nome!</h1>
