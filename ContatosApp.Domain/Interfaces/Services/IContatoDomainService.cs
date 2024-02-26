@@ -17,5 +17,7 @@ namespace ContatosApp.Domain.Interfaces.Services
         List<Contato> GetAll();
 
         Contato? GetById(Guid id);
+
+        List<Contato> Consultar(String nome);
     }
 }

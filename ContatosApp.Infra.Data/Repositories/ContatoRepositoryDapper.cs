@@ -115,6 +115,22 @@ namespace ContatosApp.Infra.Data.Repositories
             }
         }
 
-
+        public List<Contato> Get(String nome)
+        {
+            var query = @"
+                SELECT ID           ,
+                       NOME         ,
+                       EMAIL        ,
+                       TELEFONE     ,
+                       DATAHORACRIACAO
+                  FROM CONTATO
+                 WHERE UPPER(NOME) LIKE @Nome 
+                 ORDER BY NOME
+            ";
+            using (var connectionSettings = new SqlConnection(ConnectionSettings.ConnectionString))
+            {
+                return connectionSettings.Query<Contato>(query, new { @Nome = "%" + nome + "%" }).ToList();
+            }
+        }
     }
 }

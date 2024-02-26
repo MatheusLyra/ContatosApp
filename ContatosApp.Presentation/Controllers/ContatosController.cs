@@ -113,7 +113,16 @@ namespace ContatosApp.Presentation.Controllers
 
             try
             {
-                model.ListagemContatos = _contatoDomainService?.GetAll();
+                if (HttpContext.Session.GetString("Nome") != null)
+                {
+                    model.Nome = HttpContext.Session.GetString("Nome");
+                    model.ListagemContatos = _contatoDomainService?.Consultar(model.Nome);
+                    // model.ListagemContatos = _contatoDomainService?.GetAll();
+                }
+                else
+                {
+                    model.ListagemContatos = _contatoDomainService?.GetAll();
+                }
             }
             catch (Exception e)
             {
@@ -126,13 +135,26 @@ namespace ContatosApp.Presentation.Controllers
         [HttpPost]
         public IActionResult Consulta(ContatosConsultaViewModel model)
         {
-            try
+            if (ModelState.IsValid)
             {
-                model.ListagemContatos = _contatoDomainService?.GetAll();
-            }
-            catch (Exception e)
-            {
-                TempData["MensagemErro"] = e.Message;
+                try
+                {
+                    if (model.Nome != null)
+                    {
+                        model.ListagemContatos = _contatoDomainService?.Consultar(model.Nome.ToUpper());
+                        HttpContext.Session.SetString("Nome", model.Nome.ToString());
+                    }
+                    else
+                    {
+                        model.ListagemContatos = _contatoDomainService?.GetAll();
+                        HttpContext.Session.SetString("Nome", "");
+                    }
+                    
+                }
+                catch (Exception e)
+                {
+                    TempData["MensagemErro"] = e.Message;
+                }
             }
             //retornando a model
             return View(model);

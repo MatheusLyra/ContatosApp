@@ -14,5 +14,7 @@ namespace ContatosApp.Domain.Interfaces.Repositories
         void Delete(Guid id);
         List<Contato> GetAll();
         Contato? GetById(Guid id);
+
+        List<Contato> Get(String nome);
     }
 }

@@ -49,5 +49,9 @@ namespace ContatosApp.Domain.Services
             return _contatoRepository?.GetById(id);
         }
 
+        public List<Contato> Consultar(string nome)
+        {
+            return _contatoRepository?.Get(nome);
+        }
     }
 }
